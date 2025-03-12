@@ -102,8 +102,9 @@ Anota la URL `https://random-subdomain.ngrok.io`, ya que se usará para configur
 1. Ir a [Meta Developers](https://developers.facebook.com/).
 2. En la aplicación de WhatsApp, ir a **Configuración** > **Webhooks**.
 3. Hacer clic en **Agregar Webhook** y pegar la URL de Ngrok (`https://random-subdomain.ngrok.io/webhook`).
-4. Seleccionar los eventos que deseas recibir (por ejemplo, `messages`, `status`, `metrics`).
-5. Guardar los cambios.
+4. Ingresar tu token secreto (puede ser cualquier nombre que deseas)
+5. Seleccionar los eventos que deseas recibir (por ejemplo, `messages`, `status`, `metrics`).
+6. Guardar los cambios.
 
 ---
 
