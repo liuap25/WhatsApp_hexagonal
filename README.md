@@ -36,7 +36,6 @@ Este documento describe los pasos para configurar un Webhook para recibir métri
 ---
 
 ## 🚀 Paso 1: Crear una cuenta en Ngrok
-
 1. Ir a [Ngrok](https://ngrok.com/) y crear una cuenta.
 2. Verificar tu cuenta a través del correo electrónico.
 3. Iniciar sesión y obtener el **Authtoken** desde el panel de usuario.
@@ -44,9 +43,7 @@ Este documento describe los pasos para configurar un Webhook para recibir métri
 ---
 
 ## 🔧 Paso 2: Instalar y configurar Ngrok
-
 ### 🔹 **Windows**
-
 1. Descargar el archivo `ngrok.exe` desde [Ngrok Downloads](https://ngrok.com/download).
 2. Mover `ngrok.exe` a una carpeta accesible, por ejemplo, `C:\ngrok`.
 3. Abrir la terminal (cmd o PowerShell) y navegar hasta la carpeta donde está `ngrok.exe`:
@@ -59,7 +56,6 @@ Este documento describe los pasos para configurar un Webhook para recibir métri
    ```
 
 ### 🔹 **Linux y macOS**
-
 1. Descargar Ngrok:
    ```sh
    wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
@@ -80,33 +76,59 @@ Este documento describe los pasos para configurar un Webhook para recibir métri
 ---
 
 ## 🌍 Paso 3: Ejecutar el túnel público con Ngrok
-
-Para exponer un servidor local (por ejemplo, un API en **Flask** o **FastAPI** en el puerto 5000):
-
+Para exponer un servidor local (por ejemplo, un API en **Flask** o **FastAPI** en el puerto 8080):
 ```sh
-ngrok http http://localhost:8080
+ngrok http 8080
 ```
-
 Al ejecutar este comando, aparecerá una salida similar a esta:
-
 ```sh
 Forwarding                    https://random-subdomain.ngrok.io -> http://localhost:8080
 ```
-
 Anota la URL `https://random-subdomain.ngrok.io`, ya que se usará para configurar el webhook en Meta.
 
 ---
 
 ## 🔗 Paso 4: Configurar el Webhook en Meta
-
 1. Ir a [Meta Developers](https://developers.facebook.com/).
 2. En la aplicación de WhatsApp, ir a **Configuración** > **Webhooks**.
 3. Hacer clic en **Agregar Webhook** y pegar la URL de Ngrok (`https://random-subdomain.ngrok.io/webhook`).
-4. Ingresar tu token secreto (puede ser cualquier nombre que deseas)
-5. Seleccionar los eventos que deseas recibir (por ejemplo, `messages`, `status`, `metrics`).
-6. Guardar los cambios.
+4. Seleccionar los eventos que deseas recibir (por ejemplo, `messages`, `status`, `metrics`).
+5. Guardar los cambios.
 
 ---
+
+## ⚙️ Paso 5: Configurar variables de entorno
+Antes de ejecutar el proyecto, se deben configurar las siguientes variables de entorno en un archivo `.env`:
+
+```env
+MONGO_URI=mongodb+srv://TU_USUARIO:TU_PASSWORD@whatsapp.ny1ty.mongodb.net/?retryWrites=true&w=majority&appName=whatsapp
+MONGO_DB_NAME=db_whatsApp
+WEBHOOK_VERIFY_TOKEN=tu_token_secreto
+GRAPH_API_TOKEN=tu_token_graph_api
+PORT=8080
+```
+📌 **Nota:** No cambiar el puerto, ya que debe coincidir con el de Flask y el túnel de Ngrok.
+
+---
+
+## 🏃 Paso 6: Ejecutar la aplicación
+Una vez configuradas las variables de entorno, ejecutar el proyecto:
+```sh
+python main.py
+```
+Si todo está correctamente configurado, el webhook comenzará a recibir métricas de WhatsApp.
+
+---
+
+## 📌 Notas
+- Ngrok proporciona un dominio temporal. Cada vez que se reinicia, cambia la URL.
+- Para evitar cambios de URL, puedes usar Ngrok con un dominio personalizado (requiere plan pago).
+- Asegúrate de que tu servidor local está activo antes de exponerlo con Ngrok.
+
+---
+
+
+
 
 
 
